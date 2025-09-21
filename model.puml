@@ -1,0 +1,62 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Main {
++main (args: String[])
+}
+
+note left of Main{
+Universe universe = UniverseFactory.makeUniverseFromFile(fname);
+NBodySimulator simulator = new NBodySimulator(universe,
+dt, pausetime, trace);
+simulator.simulate();
+}
+
+Main -[hidden]-> Universe
+
+Universe -[hidden]-> UniverseFactory
+
+
+class NBodySimulator{
+-timeStep: double
+-pauseTime: int
+-trace: boolean
++NBodySimulator (String fname : String, dt : double,
+pauseTime : int, doTrace : boolean)
++simulate()
+-createCanvas()
+-drawUniverse()
+}
+
+NBodySimulator -> "1" Universe : universe
+
+class Universe {
+-numBodies: int
+-radius: double
++Universe(bodies : Body[], radius : double)
+}
+
+Universe *-> "1..*" Body : bodies
+
+class Body {
+-position : Vector
+-velocity : Vector
+-mass: double
++move(f : Vector, dt : double)
++forceFrom(b : Body) : Vector
++getPosition() : Vector
++toString() : String
+}
+
+class UniverseFactory{
++{static} makeUniverseFromFile(fname : string) : Universe
++{static} makeCentralConfiguration(numBodies : int,
+angleVelPos : double) : Universe
++{static} makeChoreography(nChoreography : int) : Universe
++{static} makePlanetaryConfiguration(numPlanets : int) : Universe
+-{static} randomBetween(minValue : double, maxValue : double) : double
+}
+UniverseFactory --> Universe
+
+
+@enduml
