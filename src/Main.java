@@ -13,23 +13,28 @@ public class Main {
 
     String configType = args[3].toLowerCase();
     Universe universe = null;
-
-    if (configType.equals("file")) {
-      String fname = args[4];
-      universe = UniverseFactory.makeUniverseFromFile(fname);
-    }
-    else if (configType.equals("central")) {
-      int numBodies = Integer.parseInt(args[4]);
-      double angleVelPos = Double.parseDouble(args[5]);
-      universe = UniverseFactory.makeCentralConfiguration(numBodies, angleVelPos);
-    }
-    else if (configType.equals("planetary")) {
-      int numPlanets = Integer.parseInt(args[4]);
-      universe = UniverseFactory.makePlanetaryConfiguration(numPlanets);
-    }
-    else if (configType.equals("choreography")) {
-      int nchoreography = Integer.parseInt(args[4]);
-      universe = UniverseFactory.makeChoreography(nchoreography);
+// args: 1000 0 trace file data/3body.txt
+    switch (configType) {
+      case "file":
+        String fname = args[4];
+        universe = UniverseFactory.makeUniverseFromFile(fname);
+        break;
+      //args: 100 10 trace central 10 0.6
+      case "central":
+        int numBodies = Integer.parseInt(args[4]);
+        double angleVelPos = Double.parseDouble(args[5]);
+        universe = UniverseFactory.makeCentralConfiguration(numBodies, angleVelPos);
+        break;
+      //args: 10 10 trace planetary 8
+      case "planetary":
+        int numPlanets = Integer.parseInt(args[4]);
+        universe = UniverseFactory.makePlanetaryConfiguration(numPlanets);
+        break;
+      //args:
+      case "choreography":
+        int nchoreography = Integer.parseInt(args[4]);
+        universe = UniverseFactory.makeChoreography(nchoreography);
+        break;
     }
 
     NBodySimulator simulator = new NBodySimulator(universe, dt, pausetime, trace);
