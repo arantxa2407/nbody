@@ -42,6 +42,14 @@ public class Body {
         return delta.direction().scale(magnitude);
     }
 
+    public Vector forceFromChoreography(Body b) {
+        Body a = this;
+        Vector delta = b.position.minus(a.position);
+        double dist = delta.magnitude();
+        double magnitude = (a.gravity * a.mass * b.mass) / (dist * dist);
+        return delta.direction().scale(magnitude);
+    }
+
     public Vector getPosition(){
       return position;
     }

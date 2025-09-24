@@ -35,7 +35,32 @@ public class NBodySimulator {
       StdDraw.pause(pauseTime);
     }
 
-  };
+  }
+
+  public void simulateChoreography(){
+    createCanvas(); // canvas creation
+//    while(true){
+//      StdDraw.clear(); // canvas clearing
+//      universe.update(timeStep);
+//      drawUniverse();
+//      StdDraw.show();
+//      StdDraw.pause(pauseTime);
+//    }
+
+    // Per simular amb trace
+
+    StdDraw.clear(StdDraw.GRAY); // canvas clearing
+    while(true){
+      StdDraw.setPenColor(StdDraw.WHITE);
+      drawUniverse();
+      universe.updateChoreography(timeStep);
+      StdDraw.setPenColor(StdDraw.BLACK);
+      drawUniverse();
+      StdDraw.show();
+      StdDraw.pause(pauseTime);
+    }
+
+  }
 
   private void createCanvas() {
     //StdDraw.setCanvasSize(700, 700); // uncomment for a larger window
@@ -52,5 +77,5 @@ public class NBodySimulator {
       StdDraw.setPenRadius(0.025);
       StdDraw.point(universe.getBodyPosition(i).cartesian(0),  universe.getBodyPosition(i).cartesian(1));
     }
-  };
+  }
 }
