@@ -12,12 +12,20 @@ public class Body {
     private Vector position;           // position
     private Vector velocity;           // velocity
     private final double mass;  // mass
+    private double gravity;
 
     public Body(Vector r, Vector v, double mass) {
         this.position = r;
         this.velocity = v;
         this.mass = mass;
     }
+    public Body(Vector r, Vector v, double mass, double gravity) {
+        this.position = r;
+        this.velocity = v;
+        this.mass = mass;
+        this.gravity = gravity;
+    }
+
 
     public void move(Vector f, double dt) {
         Vector a = f.scale(1/mass);

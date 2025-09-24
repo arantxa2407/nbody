@@ -51,7 +51,7 @@ public class UniverseFactory {
     return new Universe(bodies, RADIUS);
   }
 
-  public static Universe makeChoreography(int nChoreography) throws FileNotFoundException {
+  public static Universe makeChoreography(int nChoreography){
     String fname="data/simo-initial-conditions.txt";
     final int NUM_CHOREOGRAPHIES = 345;
     assert (nChoreography>=1) && (nChoreography<=NUM_CHOREOGRAPHIES);
@@ -65,7 +65,10 @@ public class UniverseFactory {
       c4 = Double.parseDouble(in.next());
       c5 = Double.parseDouble(in.next());
       }
-      Vector r1 = new Vector(new double[]{-2 * c1, 0});
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+      Vector r1 = new Vector(new double[]{(-2 * c1), 0});
       Vector r2 = new Vector(new double[]{c1, c2});
       Vector r3 = new Vector(new double[]{c1, -c2});
       Vector v1 = new Vector(new double[]{0, -2 * c4});
@@ -75,16 +78,12 @@ public class UniverseFactory {
       int numBodies = 3;
       Body[] bodies = new Body[numBodies];
       double mass = 1. / 3;
-      double G = 1.0;
-      bodies[0] = new Body(r1, v1, mass);
-      bodies[1] = new Body(r2, v2, mass);
-      bodies[2] = new Body(r3, v3, mass);
+      double G = 1;
+      bodies[0] = new Body(r1, v1, mass, G);
+      bodies[1] = new Body(r2, v2, mass, G);
+      bodies[2] = new Body(r3, v3, mass, G);
       return new Universe(bodies, radius);
-    } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);
-    } catch (NumberFormatException e) {
-      throw new RuntimeException(e);
-    }
+
   }
 
   public static Universe makePlanetaryConfiguration(int numPlanets) {

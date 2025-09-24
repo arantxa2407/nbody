@@ -7,8 +7,8 @@ public class Main {
     int numargs = args.length;
     assert numargs >= 4 : "invalid number of arguments";
 
-    double dt = Double.parseDouble(args[0]);
-    int pausetime = Integer.parseInt(args[1]);
+    double dt = 1000;
+    int pausetime = 0;
     boolean trace = args[2].toLowerCase().equals("trace");
 
     String configType = args[3].toLowerCase();
@@ -21,19 +21,20 @@ public class Main {
         break;
       //args: 100 10 trace central 10 0.6
       case "central":
-        int numBodies = Integer.parseInt(args[4]);
-        double angleVelPos = Double.parseDouble(args[5]);
-        universe = UniverseFactory.makeCentralConfiguration(numBodies, angleVelPos);
+        dt = 100;
+        pausetime = 10;
+        universe = UniverseFactory.makeCentralConfiguration(10, 0.85);
         break;
       //args: 10 10 trace planetary 8
       case "planetary":
-        int numPlanets = Integer.parseInt(args[4]);
-        universe = UniverseFactory.makePlanetaryConfiguration(numPlanets);
+        dt = 10;
+        pausetime = 10;
+        universe = UniverseFactory.makePlanetaryConfiguration(10);
         break;
-      //args:
+      //args: 0.0001 0 trace choreography 10
       case "choreography":
-        int nchoreography = Integer.parseInt(args[4]);
-        universe = UniverseFactory.makeChoreography(nchoreography);
+        dt = 0.0001;
+        universe = UniverseFactory.makeChoreography(10);
         break;
     }
 
