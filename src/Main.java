@@ -19,7 +19,7 @@ public class Main {
         String fname = args[4];
         universe = UniverseFactory.makeUniverseFromFile(fname);
         break;
-      //args: 100 10 trace central 10 0.6
+      //args: 100 10 trace central 10 0.85
       case "central":
         dt = 100;
         pausetime = 10;
