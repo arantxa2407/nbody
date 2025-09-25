@@ -33,7 +33,7 @@ public class Main {
       //args: 0.0001 0 trace choreography 2 (corazon)
       case "choreography":
         dt = 0.0001;
-        universe = UniverseFactory.makeChoreography(1);
+        universe = UniverseFactory.makeChoreography(2);
         break;
     }
 

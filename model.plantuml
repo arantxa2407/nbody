@@ -1,0 +1,82 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+class Body {
+-position : Vector
+-velocity : Vector
+-mass: double
+-acceleration: Vector
++move(f : Vector, dt : double)
++forceFrom(b : Body) : Vector
++getPosition() : Vector
++toString() : String
+}
+
+class EulerIntegrator {
++timeStep:double
++move(universe:Universe):void
+}
+
+abstract Integrator {
+#timeStep:double
++Integrator(timeStep:double)
++{abstract}move(universe:Universe)
+}
+
+class LeapfrogIntegrator {
++timeStep:double
++move(universe:Universe):void
+}
+
+class Main {
++{static}main (args: String[])
+}
+
+class NBodySimulator {
+-timeStep: double
+-pauseTime: int
+-trace: boolean
+-integrator:Integrator
++NBodySimulator (String fname : String, dt : double,
+pauseTime : int, doTrace : boolean, integrator : Integrator)
++simulate()
+-createCanvas()
+-drawUniverse()
+}
+
+class Universe {
+-numBodies: int
+-radius: double
++Universe(bodies : Body[], radius : double)
+  + update(double): void
+  + getBodyAcceleration(int): Vector
+  + getBodyVelocity(int): Vector
+  + computeForceOn(int): Vector
+  + getBodyMass(int): double
+  + setBodyVelocity(int, Vector): void
+  + setBodyPosition(int, Vector): void
+  + setBodyAcceleration(int, Vector): void
+  + getBodyPosition(int): Vector
+}
+
+
+class UniverseFactory {
++{static} makeUniverseFromFile(fname : string) : Universe
++{static} makeCentralConfiguration(numBodies : int, angleVelPos : double) : Universe
++{static} makeChoreography(nChoreography : int) : Universe
++{static} makePlanetaryConfiguration(numPlanets : int) : Universe
+-{static} randomBetween(minValue : double, maxValue : double) : double
+}
+
+
+
+Integrator <-- EulerIntegrator
+Integrator <-- LeapfrogIntegrator
+Universe *-> "1..*" Body : bodies
+NBodySimulator "1"->  Integrator : integrator
+NBodySimulator -> "1" Universe : universe
+Main -[hidden]-> Universe
+UniverseFactory -[hidden]-> Universe
+
+@enduml
