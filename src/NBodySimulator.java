@@ -14,28 +14,27 @@ public class NBodySimulator {
 
   public void simulate(){
     createCanvas(); // canvas creation
-//    while(true){
-//      StdDraw.clear(); // canvas clearing
-//      universe.update(timeStep);
-//      drawUniverse();
-//      StdDraw.show();
-//      StdDraw.pause(pauseTime);
-//    }
-
-    // Per simular amb trace
-
-    StdDraw.clear(StdDraw.GRAY); // canvas clearing
-    while(true){
-      StdDraw.setPenColor(StdDraw.WHITE);
-      drawUniverse();
+    //no trace simulation
+    while(true && !trace){
+      StdDraw.clear(); // canvas clearing
       universe.update(timeStep);
-      StdDraw.setPenColor(StdDraw.BLACK);
       drawUniverse();
       StdDraw.show();
       StdDraw.pause(pauseTime);
     }
 
-  };
+    // Trace simulation
+    StdDraw.clear(StdDraw.GRAY); // canvas clearing
+    while(true && trace){
+      StdDraw.setPenColor(StdDraw.WHITE); //white trace
+      drawUniverse();
+      universe.update(timeStep);
+      StdDraw.setPenColor(StdDraw.BLACK); //black body
+      drawUniverse();
+      StdDraw.show();
+      StdDraw.pause(pauseTime);
+    }
+  }
 
   private void createCanvas() {
     //StdDraw.setCanvasSize(700, 700); // uncomment for a larger window
@@ -52,5 +51,5 @@ public class NBodySimulator {
       StdDraw.setPenRadius(0.025);
       StdDraw.point(universe.getBodyPosition(i).cartesian(0),  universe.getBodyPosition(i).cartesian(1));
     }
-  };
+  }
 }
