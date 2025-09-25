@@ -16,6 +16,8 @@ public class NBodySimulator {
 
   public void simulate(  ){
     createCanvas(); // canvas creation
+    StdDraw.clear(StdDraw.GRAY); // canvas clearing
+    integrator.move(universe);
     //no trace simulation
     while(!trace){
       StdDraw.clear(); // canvas clearing
@@ -26,16 +28,15 @@ public class NBodySimulator {
     }
 
     // Trace simulation
-    StdDraw.clear(StdDraw.GRAY); // canvas clearing
       while(trace){
         StdDraw.setPenColor(StdDraw.WHITE); //white trace
+        drawUniverse();
         universe.update(timeStep);
         StdDraw.setPenColor(StdDraw.BLACK); //black body
         drawUniverse();
         StdDraw.show();
         StdDraw.pause(pauseTime);
     }
-
   }
 
 
