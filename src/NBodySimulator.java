@@ -12,7 +12,7 @@ public class NBodySimulator {
     trace = doTrace;
   }
 
-  public void simulate( boolean choreography ){
+  public void simulate(  ){
     createCanvas(); // canvas creation
 //    while(true){
 //      StdDraw.clear(); // canvas clearing
@@ -28,11 +28,8 @@ public class NBodySimulator {
     while(true){
       StdDraw.setPenColor(StdDraw.WHITE);
       drawUniverse();
-      if (choreography){
-        universe.update(timeStep, true);
-      } else {
-        universe.update(timeStep, false);
-      }
+        universe.update(timeStep);
+
       StdDraw.setPenColor(StdDraw.BLACK);
       drawUniverse();
       StdDraw.show();

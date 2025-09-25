@@ -11,7 +11,7 @@ public class Universe {
   }
 
 
-  public void update(double dt, boolean choreography){
+  public void update(double dt){
 
     // initialize forces to zero
     Vector[] f =  new Vector[numBodies];
@@ -20,15 +20,6 @@ public class Universe {
     }
 
     //compute forces
-    if (choreography) {
-      for (int i = 0; i < numBodies; i++) {
-        for (int j = 0; j < numBodies; j++) {
-          if (i != j) {
-            f[i] = f[i].plus(bodies[i].forceFromChoreography(bodies[j]));
-          }
-        }
-      }
-    } else {
       for (int i = 0; i < numBodies; i++) {
         for (int j = 0; j < numBodies; j++) {
           if (i != j) {
@@ -36,8 +27,6 @@ public class Universe {
           }
         }
       }
-
-    }
 
     // move the bodies
     for (int i = 0; i < numBodies; i++) {

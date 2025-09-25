@@ -19,7 +19,7 @@ boolean trace = true;
     switch (configType) {
       case "file":
 //        String fname = args[4];
-        universe = UniverseFactory.makeUniverseFromFile("data/2body.txt");
+        universe = UniverseFactory.makeUniverseFromFile("data/3body.txt");
         break;
       //args: 100 10 trace central 10 0.85
       case "central":
@@ -33,21 +33,18 @@ boolean trace = true;
         pausetime = 10;
         universe = UniverseFactory.makePlanetaryConfiguration(10);
         break;
-      //args: 0.0001 0 trace choreography 10
+      //args: 0.0001 0 trace choreography 1 (infinito)
+      //args: 0.0001 0 trace choreography 2 (corazon)
       case "choreography":
         dt = 0.0001;
-        universe = UniverseFactory.makeChoreography(1);
+        universe = UniverseFactory.makeChoreography(2);
         break;
     }
 
     NBodySimulator simulator = new NBodySimulator(universe, dt, pausetime, trace);
-    System.out.println(dt  );
+    simulator.simulate();
 
-    if (configType.equals("choreography")) {
-      simulator.simulate(true);
-    } else {
-      simulator.simulate(false);
-    }
+
 
   }
 }

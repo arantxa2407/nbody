@@ -12,7 +12,7 @@ public class Body {
     private Vector position;           // position
     private Vector velocity;           // velocity
     private final double mass;  // mass
-    private double gravity;
+    private double gravity = 6.67e-11;
 
     public Body(Vector r, Vector v, double mass) {
         this.position = r;
@@ -35,20 +35,15 @@ public class Body {
 
     public Vector forceFrom(Body b) {
         Body a = this;
-        double G = 6.67e-11;
-        Vector delta = b.position.minus(a.position);
-        double dist = delta.magnitude();
-        double magnitude = (G * a.mass * b.mass) / (dist * dist);
-        return delta.direction().scale(magnitude);
-    }
-
-    public Vector forceFromChoreography(Body b) {
-        Body a = this;
+//        double G = 6.67e-11;
         Vector delta = b.position.minus(a.position);
         double dist = delta.magnitude();
         double magnitude = (a.gravity * a.mass * b.mass) / (dist * dist);
         return delta.direction().scale(magnitude);
+
     }
+
+
 
     public Vector getPosition(){
       return position;
