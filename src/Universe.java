@@ -2,7 +2,7 @@
 public class Universe {
   private int numBodies;
   private double radius;
-  private Body[] bodies; //public??
+  private Body[] bodies;
 
   public Universe(Body[] bodies, double radius) {
     this.radius = radius;
