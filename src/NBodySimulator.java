@@ -12,7 +12,7 @@ public class NBodySimulator {
     trace = doTrace;
   }
 
-  public void simulate(){
+  public void simulate( boolean choreography ){
     createCanvas(); // canvas creation
 //    while(true){
 //      StdDraw.clear(); // canvas clearing
@@ -28,7 +28,11 @@ public class NBodySimulator {
     while(true){
       StdDraw.setPenColor(StdDraw.WHITE);
       drawUniverse();
-      universe.update(timeStep);
+      if (choreography){
+        universe.update(timeStep, true);
+      } else {
+        universe.update(timeStep, false);
+      }
       StdDraw.setPenColor(StdDraw.BLACK);
       drawUniverse();
       StdDraw.show();
@@ -37,30 +41,6 @@ public class NBodySimulator {
 
   }
 
-  public void simulateChoreography(){
-    createCanvas(); // canvas creation
-//    while(true){
-//      StdDraw.clear(); // canvas clearing
-//      universe.update(timeStep);
-//      drawUniverse();
-//      StdDraw.show();
-//      StdDraw.pause(pauseTime);
-//    }
-
-    // Per simular amb trace
-
-    StdDraw.clear(StdDraw.GRAY); // canvas clearing
-    while(true){
-      StdDraw.setPenColor(StdDraw.WHITE);
-      drawUniverse();
-      universe.updateChoreography(timeStep);
-      StdDraw.setPenColor(StdDraw.BLACK);
-      drawUniverse();
-      StdDraw.show();
-      StdDraw.pause(pauseTime);
-    }
-
-  }
 
   private void createCanvas() {
     //StdDraw.setCanvasSize(700, 700); // uncomment for a larger window

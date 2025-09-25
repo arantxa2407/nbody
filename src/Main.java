@@ -44,9 +44,9 @@ boolean trace = true;
     System.out.println(dt  );
 
     if (configType.equals("choreography")) {
-      simulator.simulateChoreography();
+      simulator.simulate(true);
     } else {
-      simulator.simulate();
+      simulator.simulate(false);
     }
 
   }
