@@ -1,0 +1,84 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Body {
+-position : Vector
+-velocity : Vector
+-mass: double
++move(f : Vector, dt : double)
++forceFrom(b : Body) : Vector
++getPosition() : Vector
++toString() : String
+}
+
+class Vector {
+  - double x
+  - double y
+  + double dot(Vector v)
+  + Vector plus(Vector v)
+  + Vector minus(Vector v)
+  + Vector scale(double factor)
+  + double magnitude()
+}
+
+abstract Integrator {
+#timeStep:double
++Integrator(timeStep:double)
++move(universe:Universe)
+}
+
+class EulerIntegrator {
+  + void step(Body[] bodies, double dt)
+}
+
+class LeapfrogIntegrator {
+  + void step(Body[] bodies, double dt)
+}
+
+class Universe {
+  - int nBodies
+  - Body[] bodies
+  - double radius
++Universe(bodies : Body[], radius : double)
+
+}
+
+class UniverseFactory {
++{static} makeUniverseFromFile(fname : string) : Universe
++{static} makeCentralConfiguration(numBodies : int,
+angleVelPos : double) : Universe
++{static} makeChoreography(nChoreography : int) : Universe
++{static} makePlanetaryConfiguration(numPlanets : int) : Universe
+-{static} randomBetween(minValue : double, maxValue : double) : double
+}
+
+class NBodySimulator {
+-timeStep: double
+-pauseTime: int
+-trace: boolean
++NBodySimulator (String fname : String, dt : double,
+pauseTime : int, doTrace : boolean)
++simulate()
+-createCanvas()
+-drawUniverse()
+}
+
+class StdDraw {
+}
+
+class Main {
++main (args: String[])
+}
+
+' Relaciones
+Integrator <|.. EulerIntegrator
+Integrator <|.. LeapfrogIntegrator
+UniverseFactory --> Universe
+Universe --> Body
+Body --> Vector
+NBodySimulator --> Universe
+NBodySimulator --> Integrator
+Main --> NBodySimulator
+StdDraw ..> Universe : used for drawing
+
+@enduml

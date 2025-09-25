@@ -4,12 +4,14 @@ public class NBodySimulator {
   private int pauseTime;
   private boolean trace;
   private Universe universe;
+  private Integrator integrator;
 
-  public NBodySimulator(Universe universe, double dt, int pt, boolean doTrace){
+  public NBodySimulator(Universe universe, double dt, int pt, boolean doTrace, Integrator integrator) {
     this.universe = universe;
     timeStep = dt;
     pauseTime = pt;
     trace = doTrace;
+    this.integrator = integrator;
   }
 
   public void simulate(  ){
@@ -22,14 +24,14 @@ public class NBodySimulator {
 //      StdDraw.pause(pauseTime);
 //    }
 
-    // Per simular amb trace
+    // for simulate with trace
 
     StdDraw.clear(StdDraw.GRAY); // canvas clearing
+    integrator.move(universe);
     while(true){
       StdDraw.setPenColor(StdDraw.WHITE);
       drawUniverse();
-        universe.update(timeStep);
-
+      universe.update(timeStep);
       StdDraw.setPenColor(StdDraw.BLACK);
       drawUniverse();
       StdDraw.show();

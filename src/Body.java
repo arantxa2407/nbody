@@ -1,18 +1,10 @@
-/******************************************************************************
- *  Compilation:  javac Body.java
- *  Execution:    java Body
- *  Dependencies: Vector.java StdDraw.java
- *
- *  Implementation of a 2D Body with a position, velocity and mass.
- *
- *
- ******************************************************************************/
 
 public class Body {
     private Vector position;           // position
     private Vector velocity;           // velocity
     private final double mass;  // mass
     private double gravity = 6.67e-11;
+    private Vector acceleration;
 
     public Body(Vector r, Vector v, double mass) {
         this.position = r;
@@ -47,6 +39,30 @@ public class Body {
 
     public Vector getPosition(){
       return position;
+    }
+
+    public Vector getVelocity(){
+        return velocity;
+    }
+
+    public double getMass(){
+        return mass;
+    }
+
+    public void setPosition(Vector position) {
+        this.position = position;
+    }
+
+    public void setVelocity(Vector velocity) {
+        this.velocity = velocity;
+    }
+
+    public Vector getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Vector acceleration) {
+        this.acceleration = acceleration;
     }
 
     @Override

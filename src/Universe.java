@@ -47,4 +47,41 @@ public class Universe {
     return radius;
   }
 
+  //para euler y leapfrog integrator
+
+  public Vector getBodyVelocity( int i){
+    return bodies[i].getVelocity();
+  }
+
+  public double getBodyMass(int i){
+    return bodies[i].getMass();
+  }
+
+  public void setBodyPosition(int i, Vector v) {
+    bodies[i].setPosition(v);
+  }
+
+  public void setBodyVelocity(int i, Vector v){
+    bodies[i].setVelocity(v);
+  }
+
+  public void setBodyAcceleration(int i, Vector v){
+    bodies[i].setAcceleration(v);
+  }
+
+  public Vector getBodyAcceleration(int i){
+    return bodies[i].getAcceleration();
+  }
+
+  public Vector computeForceOn(int i){
+    Vector f = new Vector(new double[2]);
+    for (int j=0; j< numBodies; j++){
+      if (i != j){
+        f = f.plus(bodies[i].forceFrom(bodies[j]));
+      }
+    }
+    return f;
+  }
+
+
 }

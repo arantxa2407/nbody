@@ -1,24 +1,20 @@
 import java.io.FileNotFoundException;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
   public static void main(String[] args) throws FileNotFoundException {
-//    int numargs = args.length;
-//    assert numargs >= 4 : "invalid number of arguments";
 
     double dt = 1000;
     int pausetime = 0;
-//    boolean trace = args[2].toLowerCase().equals("trace");
-boolean trace = true;
-
-//    String configType = args[3].toLowerCase();
+    boolean trace = true;
+    Integrator integrator = null;
     String configType = args[0].toLowerCase();
+    String method = args[1].toLowerCase();
     Universe universe = null;
+
 // args: 1000 0 trace file data/3body.txt
     switch (configType) {
       case "file":
-//        String fname = args[4];
         universe = UniverseFactory.makeUniverseFromFile("data/3body.txt");
         break;
       //args: 100 10 trace central 10 0.85
@@ -29,19 +25,27 @@ boolean trace = true;
         break;
       //args: 10 10 trace planetary 8
       case "planetary":
-        dt = 10;
+        dt = 5;
         pausetime = 10;
-        universe = UniverseFactory.makePlanetaryConfiguration(10);
+        universe = UniverseFactory.makePlanetaryConfiguration(8);
         break;
       //args: 0.0001 0 trace choreography 1 (infinito)
       //args: 0.0001 0 trace choreography 2 (corazon)
       case "choreography":
         dt = 0.0001;
-        universe = UniverseFactory.makeChoreography(2);
+        universe = UniverseFactory.makeChoreography(1);
         break;
     }
 
-    NBodySimulator simulator = new NBodySimulator(universe, dt, pausetime, trace);
+    switch (method){
+      case "euler":
+        integrator = new EulerIntegrator(dt);
+        break;
+        case "leapfrog":
+          integrator = new LeapfrogIntegrator(dt);
+    }
+
+    NBodySimulator simulator = new NBodySimulator(universe, dt, pausetime, trace, integrator);
     simulator.simulate();
 
 
